@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="WPF_study01.Veiws.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF_study01.Veiws"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <TextBlock Text="系统配置" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+        <TextBlock Text="{Binding PlcAddress, StringFormat=PLC 地址：{0}}" FontSize="18" Margin="5"/>
+        <TextBlock Text="{Binding VisionUrl, StringFormat=视觉服务：{0}}" FontSize="18" Margin="5"/>
+        <TextBlock Text="{Binding DatabaseName, StringFormat=数据库：{0}}" FontSize="18" Margin="5"/>
+        <TextBlock Text="模拟相机样本集" FontSize="18" Margin="5,20,5,5"/>
+        <TextBlock Text="{Binding PartsDir, StringFormat=目录：{0}}" FontSize="14" Foreground="Gray" Margin="5"/>
+        <TextBlock Text="（每检测一次自动切下一张，循环使用；真实产线此处替换成相机取流）"
+           FontSize="13" Foreground="Gray" Margin="5"/>
+    </StackPanel>
+</UserControl>

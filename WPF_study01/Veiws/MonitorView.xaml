@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="WPF_study01.Veiws.MonitorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:WPF_study01.Veiws"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- 0 标题 -->
+            <RowDefinition Height="Auto"/>
+            <!-- 1 启停按钮 -->
+            <RowDefinition Height="Auto"/>
+            <!-- 2 状态 -->
+            <RowDefinition Height="Auto"/>
+            <!-- 3 产量统计 -->
+            <RowDefinition Height="*"/>
+            <!-- 4 检测结果区：吃掉所有剩余空间 -->
+            <RowDefinition Height="Auto"/>
+            <!-- 5 复位 -->
+        </Grid.RowDefinitions>
+
+        <!-- 标题 -->
+        <TextBlock Grid.Row="0" Text="视觉检测系统 v0.1" FontSize="28" FontWeight="Bold"
+                   HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+        <!-- 启动/停止 -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="启动检测" FontSize="24" Height="50" Margin="5"
+                    Command="{Binding StartCommand}"/>
+            <Button Grid.Column="1" Content="停止" FontSize="24" Height="50" Margin="5"
+                    Command="{Binding StopCommand}"/>
+        </Grid>
+
+        <!-- 状态与产量 -->
+        <TextBlock Grid.Row="2" Text="{Binding StatusText}" FontSize="22" Margin="10,15,0,5"/>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10,5,0,15">
+            <TextBlock Text="{Binding TotalCount, StringFormat=今日产量：{0}}" FontSize="20" Margin="0,0,25,0"/>
+            <TextBlock Text="{Binding InspectedCount, StringFormat=检测数：{0}}" FontSize="20" Margin="0,0,25,0"/>
+            <TextBlock Text="{Binding PassedCount, StringFormat=合格：{0}}" FontSize="20" Foreground="Green" Margin="0,0,25,0"/>
+            <TextBlock Text="{Binding FailedCount, StringFormat=不合格：{0}}" FontSize="20" Foreground="Red" Margin="0,0,25,0"/>
+            <TextBlock Text="{Binding PassRate, StringFormat=合格率：{0}%}" FontSize="20"/>
+        </StackPanel>
+
+        <!-- 检测结果区 -->
+        <Border Grid.Row="4" BorderBrush="Gray" BorderThickness="1" Padding="15" Margin="0,0,0,15">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Button Grid.Row="0" Content="拍照检测" Width="140" Height="45" FontSize="18"
+                        HorizontalAlignment="Left" Command="{Binding CaptureCommand}"/>
+
+                <!-- 图片占满剩余空间，Stretch=Uniform 自动等比缩放 -->
+                <Image Grid.Row="1" Source="{Binding ResultImage}" Stretch="Uniform" Margin="0,10,0,0"/>
+
+                <TextBlock Grid.Row="2" Text="检测结果" FontSize="18" FontWeight="Bold" Margin="0,15,0,10"/>
+                <TextBlock Grid.Row="3" FontSize="18" FontWeight="Bold">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text" Value="结果：未检测"/>
+                            <Setter Property="Foreground" Value="Gray"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding LastResult.IsPassed}" Value="True">
+                                    <Setter Property="Text" Value="结果：✔ 合格"/>
+                                    <Setter Property="Foreground" Value="Green"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LastResult.IsPassed}" Value="False">
+                                    <Setter Property="Text" Value="结果：✘ 不合格"/>
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LastResult.DefectCount}" Value="-1">
+                                    <Setter Property="Text" Value="结果：⚠ 检测异常"/>
+                                    <Setter Property="Foreground" Value="Orange"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBlock Grid.Row="4" FontSize="16" Text="{Binding DefectText}"/>
+            </Grid>
+        </Border>
+
+        <!-- 复位 -->
+        <Button Grid.Row="5" Content="复位" FontSize="24" Height="50" Command="{Binding ClearCommand}"/>
+    </Grid>
+</UserControl>

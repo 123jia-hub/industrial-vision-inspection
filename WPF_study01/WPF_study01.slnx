@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../PlcSimulator/PlcSimulator.csproj" Id="89ace0e0-f281-4aa1-aa16-fe6c48172e1b" />
+  <Project Path="WPF_Projiect.csproj" Id="e347e1e4-82ec-48a0-b7fd-4ea2e106927f" />
+</Solution>

@@ -1,0 +1,22 @@
+# C# 构建产物（可重新生成）
+bin/
+obj/
+
+# Visual Studio 缓存（又大又没用）
+.vs/
+MigrationBackup/
+
+# NuGet 包缓存（push 时会自动还原）
+packages/
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# PyCharm 配置
+.idea/
+.ipynb_checkpoints/
+
+# 调试遗留
+detect_resp.json
+part08_resp.json
